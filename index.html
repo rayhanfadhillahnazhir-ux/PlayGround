@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#071115" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071115'/%3E%3Cpath d='M13 46V18h6l13 16 13-16h6v28h-7V29L32 43 20 29v17z' fill='%237de0ce'/%3E%3C/svg%3E" />
+  <title>MUSEUM OF TOMORROW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="scene" aria-label="3D Museum of Tomorrow game"></canvas>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+    <section id="title-screen" class="title-screen">
+      <div class="title-top"><span class="brand-mark">M<span>·</span>T</span><span class="edition">A TEMPORAL ARCHIVE<br>EST. BEYOND TIME</span></div>
+      <div class="title-copy"><div class="eyebrow"><i></i> MUSEUM OF TOMORROW <span>— 2189</span></div><h1>THE FUTURE<br><em>IS MISSING.</em></h1><p>A place for futures that never came to be.<br>Tonight, one of them has disappeared.</p><button id="start-btn" class="primary-btn">ENTER THE MUSEUM <span>↗</span></button><div class="title-foot">A SINGLE-PLAYER SCI-FI ADVENTURE <b>•</b> VERTICAL SLICE 01</div></div>
+      <div class="title-bottom"><span>NEW GAME</span><span>INDONESIA / ENGLISH</span><span>TOUCH · KEYBOARD · CONTROLLER</span></div>
+    </section>
+    <section id="hud" class="hud hidden">
+      <header class="topbar"><div class="brand-mini">M<span>·</span>T <small> / 2189</small></div><div class="objective"><span class="objective-kicker">CURRENT OBJECTIVE</span><strong id="objective-text">Restore the exhibit power</strong></div><button id="journal-btn" class="icon-btn" aria-label="Open journal">☷<span>JOURNAL</span></button><button id="settings-btn" class="icon-btn" aria-label="Settings">⚙</button></header>
+      <div class="left-rail"><div class="chapter">01 <span>/</span> THE ENTRANCE</div><div class="progress-line"><i id="progress-fill"></i></div><div class="artifact-count"><span class="diamond">◇</span> <b id="artifact-count">00</b><small>ARTIFACTS</small></div></div>
+      <div class="crosshair"><i></i></div>
+      <div id="interact-prompt" class="interact-prompt hidden"><span class="keycap">E</span><span id="prompt-text">INTERACT</span></div>
+      <div class="temporal-widget"><div class="temporal-head"><span>◇ TEMPORAL OBJECT</span><span id="temporal-name">NO SIGNAL</span></div><div class="time-rail"><button data-state="past">PAST</button><button data-state="present" class="active">PRESENT</button><button data-state="future">FUTURE</button></div><div class="temporal-hint">SELECT AN OBJECT · SHIFT ITS POSSIBILITY</div></div>
+      <div class="echo-card hidden" id="echo-card"><div class="echo-icon">E</div><div><span class="echo-label">ECHO / MUSEUM INTELLIGENCE</span><p id="echo-text"></p><button id="echo-continue">CONTINUE <span>→</span></button></div></div>
+      <div class="toast hidden" id="toast"></div>
+      <div class="mobile-controls"><div class="move-pad" id="move-pad"><div class="stick" id="stick"></div><span>MOVE</span></div><div class="mobile-actions"><button id="jump-btn">↑<small>JUMP</small></button><button id="use-btn">◉<small>USE</small></button><button id="run-btn">»<small>RUN</small></button></div></div>
+      <div class="look-zone" id="look-zone"></div>
+      <div class="save-indicator" id="save-indicator">SAVED</div>
+    </section>
+    <section id="journal" class="modal hidden"><div class="modal-card journal-card"><button class="close-btn" data-close>×</button><div class="eyebrow">ARKA'S FIELD NOTES / 01</div><h2>Investigation<br><em>Journal</em></h2><div class="journal-tabs"><button class="selected">CASE FILE</button><button id="collection-tab">COLLECTION</button></div><div id="journal-content" class="journal-content"><h3>THE VANISHING EXHIBIT</h3><p>On my first night as Keeper, the central exhibit was gone. Its absence is spreading—whole futures are being erased from the archive.</p><div class="note-row"><span>01</span><p>Meet ECHO at the Resonance Console.</p><b>IN PROGRESS</b></div><div class="note-row"><span>02</span><p>Restore the three temporal anchors.</p><b>LOCKED</b></div><div class="note-row"><span>03</span><p>Recover the missing artifact.</p><b>LOCKED</b></div></div><div class="journal-footer">AUTOSAVE ACTIVE <span>ARKA / NEW KEEPER</span></div></div></section>
+    <section id="settings" class="modal hidden"><div class="modal-card settings-card"><button class="close-btn" data-close>×</button><div class="eyebrow">SYSTEM CONFIGURATION</div><h2>Settings</h2><label>LANGUAGE <select id="language"><option>English</option><option>Bahasa Indonesia</option></select></label><label>GRAPHICS <select id="graphics"><option>High</option><option>Medium</option><option>Low</option><option>Ultra</option></select></label><label>CAMERA SENSITIVITY <input id="sensitivity" type="range" min="1" max="10" value="5"></label><label>MASTER AUDIO <input type="range" min="0" max="100" value="72"></label><button class="primary-btn" data-close>RESUME <span>↗</span></button></div></section>
+    <section id="ending" class="modal hidden"><div class="modal-card ending-card"><div class="eyebrow">EXHIBIT RESTORED / CASE FILE 001</div><h2>Tomorrow<br><em>remembers.</em></h2><p>The missing artifact wasn't stolen. It was waiting for someone to imagine it again.</p><div class="ending-stats"><span>ANCHORS RESTORED <b>03 / 03</b></span><span>ARTIFACT RECOVERED <b>01</b></span></div><button id="replay-btn" class="primary-btn">RETURN TO THE EXHIBIT <span>↗</span></button></div></section>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
