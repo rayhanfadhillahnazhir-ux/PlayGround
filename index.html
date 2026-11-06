@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#07141b" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>MUSEUM OF TOMORROW — A playable sci-fi mystery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"}}</script>
+</head>
+<body>
+  <main id="game" aria-label="Museum of Tomorrow game">
+    <canvas id="world"></canvas>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+
+    <section id="title-screen" class="screen title-screen">
+      <div class="title-top"><span class="brand-mark">M<span>·</span>T</span><span class="edition">A TEMPORAL MYSTERY<br/>2189 / ARCHIVE 01</span></div>
+      <div class="title-copy"><div class="eyebrow"><i></i> MUSEUM OF TOMORROW</div><h1>Some futures<br/>are <em>missing.</em></h1><p>Every object remembers what it was.<br/>Every possibility leaves a trace.</p><button id="start-button" class="primary-button">ENTER THE MUSEUM <span>↗</span></button><div class="title-meta">A STORY OF WHAT NEVER WAS <span>•</span> SINGLE PLAYER</div></div>
+      <div class="title-bottom"><span>2189 — THE FIRST NIGHT SHIFT</span><span>MOVE · OBSERVE · REWRITE</span></div>
+    </section>
+
+    <div id="hud" class="hud hidden">
+      <header class="topbar"><div class="hud-brand"><span class="brand-mark small">M<span>·</span>T</span><div><b>THE ENTRANCE</b><small>WING 01 <i>—</i> THE FIRST NIGHT</small></div></div><div class="top-actions"><button class="icon-button" id="journal-open" aria-label="Journal"><span>▤</span><small>JOURNAL</small></button><button class="icon-button" id="map-open" aria-label="Map"><span>⌖</span><small>MAP</small></button><button class="icon-button" id="settings-open" aria-label="Settings"><span>⚙</span><small>SETTINGS</small></button></div></header>
+      <div class="objective"><span class="objective-icon">✳</span><div><small>CURRENT THREAD</small><b id="objective-text">Find the missing centrepiece</b></div></div>
+      <div class="status-pills"><span><i class="pulse"></i> ARCHIVE STABLE <b>68%</b></span><span>ARTIFACTS <b id="artifact-count">00 / 03</b></span></div>
+      <div id="interact-prompt" class="interact-prompt hidden"><span class="keycap">E</span><span id="interact-label">Examine</span></div>
+      <div id="toast" class="toast"></div>
+      <div class="controls-hint"><span>WASD</span> MOVE <i>·</i> <span>MOUSE</span> LOOK <i>·</i> <span>E</span> INTERACT <i>·</i> <span>Q</span> TIMELINE</div>
+      <button id="timeline-toggle" class="timeline-toggle"><span class="time-glyph">◷</span><span>SHIFT<br/><b>TIME</b></span></button>
+      <div id="timeline" class="timeline hidden"><div class="timeline-head"><span>TEMPORAL OBJECT</span><button id="timeline-close">×</button></div><div class="timeline-object" id="timeline-object">OBJECT UNANALYSED</div><div class="time-rail"><button data-time="past"><b>PAST</b><small>THEN</small></button><button data-time="present" class="selected"><b>PRESENT</b><small>NOW</small></button><button data-time="future"><b>FUTURE</b><small>PERHAPS</small></button></div><div class="time-description" id="time-description">Observe an object to read its temporal states.</div><div class="timeline-foot"><span>DRAG TO SHIFT</span><span>⌁</span></div></div>
+      <div id="mobile-controls" class="mobile-controls"><div class="joystick" id="joystick"><div class="joy-ring"><div id="joy-knob"></div></div><small>MOVE</small></div><div class="mobile-actions"><button id="mobile-run">RUN</button><button id="mobile-jump">↑</button><button id="mobile-use">USE</button></div></div>
+      <div id="dialogue" class="dialogue hidden"><div class="dialogue-avatar">E</div><div class="dialogue-content"><small id="speaker">ECHO / MUSEUM INTELLIGENCE</small><p id="dialogue-text"></p><div id="dialogue-choices" class="dialogue-choices"></div></div><button id="dialogue-close">×</button></div>
+    </div>
+
+    <section id="panel" class="panel hidden"><button id="panel-close" class="panel-close">×</button><div class="panel-kicker">MUSEUM OF TOMORROW <span>/</span> <b id="panel-label">JOURNAL</b></div><h2 id="panel-title">Field notes</h2><div id="panel-content"></div></section>
+    <div id="crosshair" class="crosshair hidden"><i></i><i></i></div>
+    <div id="loading" class="loading"><span class="loading-mark">M<span>·</span>T</span><p>OPENING THE ARCHIVE</p><div class="loading-line"><i></i></div></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
